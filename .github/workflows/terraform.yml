@@ -26,12 +26,11 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=terraform-ec2 init
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform -chdir=terraform-ec2 plan -out=tfplan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
-
+        run: terraform -chdir=terraform-ec2 apply -auto-approve tfplan
